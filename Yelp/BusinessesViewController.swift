@@ -22,6 +22,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
             
             self.businesses = businesses
+            self.tableView.reloadData()
             if let businesses = businesses {
                 for business in businesses {
                     print(business.name!)
@@ -60,6 +61,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath) as! BusinessCell
+        cell.business = businesses[indexPath.row]
         return cell
     }
     /*

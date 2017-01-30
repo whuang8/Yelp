@@ -18,11 +18,11 @@
                         <viewControllerLayoutGuide type="bottom" id="VBY-gq-v8E"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="XhR-oz-92f">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="111" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZWl-9Q-KhC">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BusinessCell" rowHeight="111" id="uGh-a7-TRU" customClass="BusinessCell" customModule="Yelp" customModuleProvider="target">
@@ -128,8 +128,16 @@
                             <constraint firstItem="ZWl-9Q-KhC" firstAttribute="top" secondItem="XhR-oz-92f" secondAttribute="top" id="huI-zt-krF"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Yelp" id="JLY-Ia-Gnm"/>
+                    <navigationItem key="navigationItem" title="Yelp" id="JLY-Ia-Gnm">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="EDR-ra-Sux">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="onSearchButtonPress:" destination="2xI-yr-O5N" id="Uaq-Uk-kQM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="searchButton" destination="EDR-ra-Sux" id="TCk-Uc-ARd"/>
                         <outlet property="tableView" destination="ZWl-9Q-KhC" id="Ohn-eT-fA3"/>
                     </connections>
                 </viewController>
@@ -142,10 +150,14 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qQp-vJ-Aab" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kRb-lG-nzK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="kRb-lG-nzK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.77757835960960964" green="0.11652332180908924" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.82745098039215681" green="0.13725490196078433" blue="0.13725490196078433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

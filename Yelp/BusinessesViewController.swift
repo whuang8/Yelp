@@ -8,9 +8,11 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
+    @IBOutlet var searchButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    let searchBar = UISearchBar()
     var businesses: [Business]!
     
     override func viewDidLoad() {
@@ -20,6 +22,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
+        searchBar.delegate = self
         
         Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
             
@@ -32,8 +35,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
                 }
             }
             
-            }
-        )
+        })
         
         /* Example of Yelp search with more search options specified
          Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
@@ -65,6 +67,30 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath) as! BusinessCell
         cell.business = businesses[indexPath.row]
         return cell
+    }
+    
+    public func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.tintColor = UIColor.white
+        searchBar.showsCancelButton = true
+    }
+    
+    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("search text changed")
+    }
+    
+    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        self.navigationItem.titleView = nil
+        self.navigationItem.title = "Yelp"
+        self.navigationItem.rightBarButtonItem = self.searchButton
+    }
+    
+    @IBAction func onSearchButtonPress(_ sender: Any) {
+        self.navigationItem.rightBarButtonItem = nil
+        searchBar.becomeFirstResponder()
+        self.navigationItem.titleView = searchBar
     }
     /*
      // MARK: - Navigation

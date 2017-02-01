@@ -23,11 +23,17 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
         searchBar.delegate = self
-        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshBusinesses(_:)), for: UIControlEvents.valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
+        refreshBusinesses(refreshControl)
+    }
+    
+    func refreshBusinesses(_ refreshControl: UIRefreshControl) {
         Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
-            
             self.businesses = businesses
             self.tableView.reloadData()
+            refreshControl.endRefreshing()
             if let businesses = businesses {
                 for business in businesses {
                     print(business.name!)
@@ -47,7 +53,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
          }
          }
          */
-        
     }
     
     override func didReceiveMemoryWarning() {

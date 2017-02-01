@@ -73,6 +73,7 @@ class YelpClient: BDBOAuth1RequestOperationManager {
                                 let dictionaries = response["businesses"] as? [NSDictionary]
                                 if dictionaries != nil {
                                     completion(Business.businesses(array: dictionaries!), nil)
+                                    //print(dictionaries!)
                                 }
                             }
                         },

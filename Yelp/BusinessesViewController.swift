@@ -31,30 +31,32 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func refreshBusinesses(_ refreshControl: UIRefreshControl) {
-        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
+//        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
+//            self.businesses = businesses
+//            self.filteredBusinesses = businesses
+//            self.tableView.reloadData()
+//            refreshControl.endRefreshing()
+//            if let businesses = businesses {
+//                for business in businesses {
+//                    print(business.name!)
+//                    print(business.address!)
+//                }
+//            }
+//            
+//        })
+        
+        //Example of Yelp search with more search options specified
+        Business.searchWithTerm(term: "Restaurants", sort: .distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]?, error: Error?) in
             self.businesses = businesses
             self.filteredBusinesses = businesses
             self.tableView.reloadData()
             refreshControl.endRefreshing()
-            if let businesses = businesses {
-                for business in businesses {
-                    print(business.name!)
-                    print(business.address!)
-                }
-            }
             
-        })
-        
-        /* Example of Yelp search with more search options specified
-         Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
-         self.businesses = businesses
-         
-         for business in businesses {
-         print(business.name!)
-         print(business.address!)
-         }
-         }
-         */
+            /*for business in businesses! {
+                print(business.name!)
+                print(business.address!)
+            }*/
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -76,13 +78,14 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         return cell
     }
     
+    // called when text starts editing
     public func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.tintColor = UIColor.white
         searchBar.showsCancelButton = true
     }
     
+    // called when text changes (including clear)
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("search text changed")
         filteredBusinesses = searchText.isEmpty ? businesses : businesses.filter({(business: Business) -> Bool in
             let businessName = business.name
             return businessName!.range(of: searchText, options: .caseInsensitive) != nil

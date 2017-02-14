@@ -31,32 +31,32 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func refreshBusinesses(_ refreshControl: UIRefreshControl) {
-//        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
-//            self.businesses = businesses
-//            self.filteredBusinesses = businesses
-//            self.tableView.reloadData()
-//            refreshControl.endRefreshing()
-//            if let businesses = businesses {
-//                for business in businesses {
-//                    print(business.name!)
-//                    print(business.address!)
-//                }
-//            }
-//            
-//        })
-        
-        //Example of Yelp search with more search options specified
-        Business.searchWithTerm(term: "Restaurants", sort: .distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]?, error: Error?) in
+        Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
             self.businesses = businesses
             self.filteredBusinesses = businesses
             self.tableView.reloadData()
             refreshControl.endRefreshing()
+            if let businesses = businesses {
+                for business in businesses {
+                    print(business.name!)
+                    print(business.address!)
+                }
+            }
             
-            /*for business in businesses! {
-                print(business.name!)
-                print(business.address!)
-            }*/
-        }
+        })
+        
+        //Example of Yelp search with more search options specified
+//        Business.searchWithTerm(term: "Restaurants", sort: .distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]?, error: Error?) in
+//            self.businesses = businesses
+//            self.filteredBusinesses = businesses
+//            self.tableView.reloadData()
+//            refreshControl.endRefreshing()
+//            
+//            /*for business in businesses! {
+//                print(business.name!)
+//                print(business.address!)
+//            }*/
+//        }
     }
     
     override func didReceiveMemoryWarning() {
